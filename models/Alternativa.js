@@ -15,7 +15,7 @@ const Alternativa = connection.define('Alternativa', {
       unique: true,
     },
 },{
-  tableName: 'certos'
+  tableName: 'alternativas'
 });
 
 Alternativa.belongsTo(Figurinha, {foreignKey: 'figurinha_id', onUpdate: 'cascade', onDelete: 'CASCADE'});
