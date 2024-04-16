@@ -16,6 +16,7 @@ const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
+const palpitesRouter = require('./routes/palpites');
 
 const app = express();
 
@@ -90,7 +91,7 @@ app.use('/logout', logoutRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
-
+app.use('/palpites', palpitesRouter);
 
 // Error handling
 app.use((err, req, res, next) => {
@@ -120,7 +121,7 @@ app.use((req, res) => {
   })
 });
 
-// Listen to port 3000
+// Listen to port
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
     console.log('Listening on port', port);

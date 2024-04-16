@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('figurinhas', {
+    await queryInterface.createTable('figurados', {
       id: { 
         type: DataTypes.INTEGER,
         unique: true,
@@ -10,34 +10,44 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true   
       },
-      nome_oficial: { 
+      nome: { 
         type: DataTypes.STRING,
-        unique: true,
       },
       data: { 
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      número: { 
+        type: DataTypes.INTEGER,
         allowNull: true
       },
       youtube: { 
         type: DataTypes.STRING,
         allowNull: true
       },
+      wikipedia: { 
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       imagem: { 
         type: DataTypes.STRING,
+        allowNull: true
       },
       dica: { 
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: true
       },
       anos: { 
         type: DataTypes.STRING,
+        allowNull: true
       }
       }, 
       {
-        tableName: 'figurinhas'
+        tableName: 'figurados'
       });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('figurinhas');
+    await queryInterface.dropTable('figurados');
   }
 };

@@ -10,14 +10,14 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true   
       },
-      figurinha_id: {
+      figurado_id: {
         type: DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'figurinhas'
+            tableName: 'figurados'
           },
           key: 'id',
-          as: 'figurinha_id'
+          as: 'figurado_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'

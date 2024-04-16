@@ -1,6 +1,6 @@
 const connection = require('../config/database');
 const { DataTypes } = require('sequelize');
-const Figurinha = require('./Figurinha');
+const Figurado = require('./Figurado');
 const Palpite = require('./Palpite');
 
 const Certo = connection.define('Certo', {
@@ -15,7 +15,7 @@ const Certo = connection.define('Certo', {
   tableName: 'certos'
 });
 
-Certo.belongsTo(Figurinha, {foreignKey: 'figurinha_id', onUpdate: 'cascade', onDelete: 'CASCADE'});
+Certo.belongsTo(Figurado, {foreignKey: 'figurado_id', onUpdate: 'cascade', onDelete: 'CASCADE'});
 Certo.belongsTo(Palpite, {foreignKey: 'palpite_id', onUpdate: 'cascade', onDelete: 'CASCADE'});
 
 
