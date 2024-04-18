@@ -24,6 +24,10 @@ const User = connection.define('User', {
       unique: true,
       allowNull: true,
     },
+    created: { 
+      type: DataTypes.DATE,
+      allowNull: true
+    },
 },{
   tableName: 'users'
 });

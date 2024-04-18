@@ -11,37 +11,12 @@ module.exports= {
     definirFigurado: async function (req,res) {
         let token = req.header('authorization').substr(7);
         let id = req.body.id;
-        let nome_oficial = req.body.nome_oficial;
-        let data = req.body.data;
-        let youtube = req.body.youtube;
-        let wikipedia = req.body.wikipedia;
-        let imagem = req.body.imagem;
-        let dica = req.body.dica;
-        let anos = req.body.anos;
-        let número = req.body.número;
+
         let certos = req.body.certos;
     
         if (token == process.env.ADMIN_KEY) {
 
-            let figurado = await Figurado.update({                
-                    nome_oficial: nome_oficial,
-                    data: data,
-                    youtube: youtube,
-                    imagem: imagem,
-                    dica: dica,
-                    wikipedia: wikipedia,
-                    número: número,
-                    anos: anos, 
-                },
-                {
-                  where: {
-                    id: id,
-                  },
-                },
-            );
             
-
-
             for (let i = 0; i < certos.length; i++) {
                 await Certo.create({
                     figurado_id: figurado.id,
@@ -49,7 +24,7 @@ module.exports= {
                 })
             } 
 
-          return res.status(201).json(figurado);
+          return res.status(201).json('ok');
 
         } else {
             return res.status(400)

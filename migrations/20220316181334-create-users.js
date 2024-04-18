@@ -25,6 +25,10 @@ module.exports = {
         unique: true,
         allowNull: true,
       },
+      created: { 
+        type: DataTypes.DATE,
+        allowNull: true
+      },
       }, 
       {
         tableName: 'users'
