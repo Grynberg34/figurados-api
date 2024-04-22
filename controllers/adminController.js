@@ -11,16 +11,17 @@ module.exports= {
     definirFigurado: async function (req,res) {
         let token = req.header('authorization').substr(7);
         let id = req.body.id;
-
         let certos = req.body.certos;
     
+        console.log(certos)
+
         if (token == process.env.ADMIN_KEY) {
 
             
             for (let i = 0; i < certos.length; i++) {
                 await Certo.create({
-                    figurado_id: figurado.id,
-                    palpite_id: id
+                    figurado_id: id,
+                    palpite_id: certos[i]
                 })
             } 
 
@@ -71,17 +72,29 @@ module.exports= {
 
     },
     mostrarFiguradoDia: async function (req, res) {
-
         let date = new Date();
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
 
-        let figurado = await Figurado.findOne({ 
+        var figurado = await Figurado.findOne({ 
             where: { 
                 data: data_completa
             },
         });
-        
+
+        return res.status(201).json(figurado.número);
+
+    },
+    mostrarFigurado: async function (req, res) {
+
+        let id = parseInt(req.params.id);
+
+        var figurado = await Figurado.findOne({ 
+            where: { 
+                número: id
+            },
+        });
+
         let certos = await Certo.findAll({where:{
             figurado_id: figurado.id
         }});
@@ -96,17 +109,21 @@ module.exports= {
 
         if (dica.tipo === 'título' ) {
             dica.dataValues.texto = 'ganhou'
-        } else if (dica.tipo === 'time') {
+        } 
+        if (dica.tipo === 'time') {
             dica.dataValues.texto = 'jogou no'
-        } else if (dica.posição === 'posição') {
-            dica.dataValues.texto = 'jogou de'
+        } 
+        if (dica.tipo === 'posição') {
+            dica.dataValues.texto = 'jogava de'
         }
 
         figurado.dataValues.certos = certos__conjunto;
 
         figurado.dica = dica;
 
+
         return res.status(201).json(figurado);
+
 
     },
 }
