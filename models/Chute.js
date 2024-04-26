@@ -13,7 +13,7 @@ const Chute = connection.define('Chute', {
       primaryKey: true   
     },
     resultado: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
     }
 },{
   tableName: 'chutes'

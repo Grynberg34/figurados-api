@@ -6,8 +6,12 @@ router.get('/todos', adminController.mostrarTodasOpções);
 
 router.get('/jogadores', adminController.mostrarJogadores);
 
-router.get('/dia/:id', adminController.mostrarFigurado);
+router.post('/figurado', adminController.mostrarFigurado);
 
 router.get('/numero', adminController.mostrarFiguradoDia);
+
+router.post('/palpite', adminController.checarPalpite);
+
+router.post('/chute', adminController.checarChute);
 
 module.exports = router;

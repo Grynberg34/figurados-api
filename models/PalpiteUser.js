@@ -13,7 +13,7 @@ const PalpiteUser = connection.define('PalpiteUser', {
       primaryKey: true   
     },
     resultado: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
     }
 },{
   tableName: 'palpites_user'

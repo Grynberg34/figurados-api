@@ -47,7 +47,7 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       resultado: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
       }
       }, 
       {

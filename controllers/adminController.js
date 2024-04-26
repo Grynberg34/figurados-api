@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const Figurado = require('../models/Figurado');
+const PalpiteUser = require('../models/PalpiteUser');
 const Palpite = require('../models/Palpite');
 const Certo = require('../models/Certo');
+const Chute = require('../models/Chute');
 require("dotenv").config()
 
 let jwtOptions = {};
@@ -12,11 +14,8 @@ module.exports= {
         let token = req.header('authorization').substr(7);
         let id = req.body.id;
         let certos = req.body.certos;
-    
-        console.log(certos)
 
         if (token == process.env.ADMIN_KEY) {
-
             
             for (let i = 0; i < certos.length; i++) {
                 await Certo.create({
@@ -60,7 +59,17 @@ module.exports= {
             títulos: títulos,
         }
 
-        return res.status(201).json(opções);
+        let jogadores = await Figurado.findAll({
+            attributes: ['id','nome','número'],
+            order: [['nome', 'ASC']]
+        })
+
+        var data = {
+            opções : opções,
+            jogadores : jogadores
+        }
+
+        return res.status(201).json(data);
     },
     mostrarJogadores: async function (req, res) {
         let jogadores = await Figurado.findAll({
@@ -87,7 +96,8 @@ module.exports= {
     },
     mostrarFigurado: async function (req, res) {
 
-        let id = parseInt(req.params.id);
+        let id = req.body.id;
+        let user = req.body.user;
 
         var figurado = await Figurado.findOne({ 
             where: { 
@@ -121,9 +131,112 @@ module.exports= {
 
         figurado.dica = dica;
 
+        if (user !== null) {
+
+    
+            var palpites = await PalpiteUser.findAll({
+                where: {
+                    figurado_id: figurado.id,
+                    user_id : user
+                    
+                },
+                include: Palpite,
+            });
+    
+            var palpites_clean = [];
+    
+            for (var i = 0; i < palpites.length; i++) {
+    
+                palpites[i].Palpite.dataValues.certo = palpites[i].resultado;
+    
+                palpites_clean.push(palpites[i].Palpite)
+            }
+    
+            figurado.dataValues.palpites = palpites_clean;
+
+            
+        } else {
+            figurado.dataValues.palpites = [];
+        }
+
+        var chute = await Chute.findOne({
+            where: {
+                user_id: user,
+                figurado_id: figurado.id
+            }
+        });
+        
+        if (chute === null) {
+
+            figurado.dataValues.chute = {
+                chute_id: null,
+                resultado: null,
+                jogador: null
+            }
+        } else {
+
+            var jogador = await Figurado.findOne({
+                where: {
+                    id: chute.chute_id
+                }
+            });
+
+            figurado.dataValues.chute = chute;
+
+            figurado.dataValues.chute.dataValues.jogador = {
+                id: jogador.id,
+                nome: jogador.nome,
+                número: jogador.número,
+                youtube: jogador.youtube,
+                wikipedia: jogador.wikipedia,
+                imagem: jogador.imagem
+            };
+
+            console.log(figurado.dataValues.chute)
+
+        }
 
         return res.status(201).json(figurado);
 
-
     },
+    checarPalpite: async function (req, res) {
+        
+        let figurado_id = req.body.figurado;
+        let palpite_id = req.body.id;
+        let user_id = req.body.user;
+        let resultado = req.body.certo;
+        
+        await PalpiteUser.create({
+            figurado_id: figurado_id,
+            palpite_id: palpite_id,
+            user_id: user_id,
+            resultado: resultado
+        })
+
+        return res.status(201).json('ok');
+    },
+    checarChute: async function (req, res) {
+
+        console.log(req.body)
+
+        let figurado_id = req.body.figurado;
+        let chute_id = req.body.chute;
+        let user_id = req.body.user;
+        let resultado = req.body.certo;
+
+        await Chute.findOrCreate({
+            where: {
+                figurado_id: figurado_id,
+                user_id: user_id,
+            },
+            defaults: {
+                figurado_id: figurado_id,
+                chute_id: chute_id,
+                user_id: user_id,
+                resultado: resultado
+            },
+        })
+
+        return res.status(201).json('ok');
+    }
 }

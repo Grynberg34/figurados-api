@@ -30,7 +30,6 @@ module.exports = {
         created: date
       }
     }).then(function (user) {
-      console.log(user)
       if (user[0]) {
         var payload = { id: user[0].id };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
@@ -45,7 +44,6 @@ module.exports = {
     var token = req.header('authorization').substr(7);
 
     jwt.verify(token, process.env.JWT_KEY, function(err, decoded) {
-      console.log(decoded)
       res.status(200).json(decoded)
     });
   },
