@@ -14,4 +14,6 @@ router.post('/palpite', adminController.checarPalpite);
 
 router.post('/chute', adminController.checarChute);
 
+router.post('/album', adminController.mostrarFigurados);
+
 module.exports = router;

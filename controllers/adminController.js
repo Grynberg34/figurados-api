@@ -137,7 +137,7 @@ module.exports= {
             var palpites = await PalpiteUser.findAll({
                 where: {
                     figurado_id: figurado.id,
-                    user_id : user
+                    user_id : user.id
                     
                 },
                 include: Palpite,
@@ -161,7 +161,7 @@ module.exports= {
 
         var chute = await Chute.findOne({
             where: {
-                user_id: user,
+                user_id: user.id,
                 figurado_id: figurado.id
             }
         });
@@ -192,8 +192,6 @@ module.exports= {
                 imagem: jogador.imagem
             };
 
-            console.log(figurado.dataValues.chute)
-
         }
 
         return res.status(201).json(figurado);
@@ -216,9 +214,7 @@ module.exports= {
         return res.status(201).json('ok');
     },
     checarChute: async function (req, res) {
-
-        console.log(req.body)
-
+        
         let figurado_id = req.body.figurado;
         let chute_id = req.body.chute;
         let user_id = req.body.user;
@@ -238,5 +234,21 @@ module.exports= {
         })
 
         return res.status(201).json('ok');
+    },
+    mostrarFigurados: async function (req, res) {
+        let user = req.body.user
+
+        let figurados = await Chute.findAll({
+            where: {
+                user_id: user,
+                resultado: true
+            },
+            include: Figurado,
+            order: [
+                [Figurado, 'número', 'ASC']
+            ]
+        });
+
+        return res.status(201).json(figurados);
     }
 }

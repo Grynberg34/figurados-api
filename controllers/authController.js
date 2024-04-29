@@ -31,7 +31,7 @@ module.exports = {
       }
     }).then(function (user) {
       if (user[0]) {
-        var payload = { id: user[0].id };
+        var payload = { id: user[0].id, name: user[0].name, created: user[0].created};
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         return res.status(200).json({ "mensagem" : 'Token gerado', token: token });
       }
