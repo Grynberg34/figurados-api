@@ -38,8 +38,6 @@ jwtOptions.secretOrKey = process.env.JWT_KEY;
 
 passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done) {
 
-  console.log(jwt_payloads)
-
   User.findOne({where: {id: jwt_payload.id}})
   .then ( function(user) {
     if (user) {
