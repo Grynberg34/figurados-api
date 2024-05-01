@@ -85,6 +85,8 @@ module.exports= {
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
 
+        console.log(data_completa);
+
         var figurado = await Figurado.findOne({ 
             where: { 
                 data: data_completa
@@ -137,7 +139,7 @@ module.exports= {
             var palpites = await PalpiteUser.findAll({
                 where: {
                     figurado_id: figurado.id,
-                    user_id : user.id
+                    user_id : user
                     
                 },
                 include: Palpite,
@@ -161,7 +163,7 @@ module.exports= {
 
         var chute = await Chute.findOne({
             where: {
-                user_id: user.id,
+                user_id: user,
                 figurado_id: figurado.id
             }
         });
