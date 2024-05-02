@@ -96,6 +96,8 @@ module.exports= {
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
 
+        console.log(data_completa);
+
         var figurado = await Figurado.findOne({ 
             where: { 
                 data: data_completa
