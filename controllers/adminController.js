@@ -35,14 +35,7 @@ module.exports= {
         var token = req.header('authorization').substr(7);
 
         if (token === process.env.ADMIN_KEY) {
-            res.setHeader('Access-Control-Allow-Origin', 'https://figurados-api-vqz57.ondigitalocean.app/');
 
-            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-            res.setHeader('Access-Control-Allow-Credentials', true);
-            
             next()
         } else {
             res.status(400).json("Token falso")

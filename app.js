@@ -19,13 +19,13 @@ const authRouter = require('./routes/auth');
 const jogoRouter = require('./routes/jogo');
 
 const app = express();
-app.use(cors());
 
 // Express configs
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 // Passport
 app.use(passport.initialize());
@@ -120,6 +120,13 @@ app.use((req, res) => {
     mensagem : "Página não encontrada"
   })
 });
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://figurados-api-vqz57.ondigitalocean.app/'); 
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 
 // Listen to port
 var port = process.env.PORT || 8080;
