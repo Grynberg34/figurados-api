@@ -94,6 +94,9 @@ module.exports= {
 
     },
     mostrarFiguradoDia: async function (req, res) {
+
+        console.log(req.headers)
+
         let date = new Date();
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
