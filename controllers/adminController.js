@@ -30,6 +30,17 @@ module.exports= {
             return res.status(400)
         }
     }, 
+    checarToken: async function (req,res,next) {
+
+        var token = req.header('authorization').substr(7);
+
+        if (token === process.env.ADMIN_KEY) {
+            
+            next()
+        } else {
+            res.status(400).json("Token falso")
+        }
+    },
     mostrarTodasOpções: async function (req, res) {
 
         let posições = await Palpite.findAll({
@@ -84,8 +95,6 @@ module.exports= {
         let date = new Date();
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
-
-        console.log(data_completa);
 
         var figurado = await Figurado.findOne({ 
             where: { 
