@@ -35,6 +35,13 @@ module.exports= {
         var token = req.header('authorization').substr(7);
 
         if (token === process.env.ADMIN_KEY) {
+            res.setHeader('Access-Control-Allow-Origin', 'https://figurados-api-vqz57.ondigitalocean.app/');
+
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+            res.setHeader('Access-Control-Allow-Credentials', true);
             
             next()
         } else {
@@ -80,7 +87,6 @@ module.exports= {
             jogadores : jogadores
         }
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(data);
     },
     mostrarJogadores: async function (req, res) {
@@ -89,14 +95,10 @@ module.exports= {
             order: [['nome', 'ASC']]
         })
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(jogadores);
 
     },
     mostrarFiguradoDia: async function (req, res) {
-
-        console.log(req.headers)
-
         let date = new Date();
 
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
@@ -107,7 +109,6 @@ module.exports= {
             },
         });
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurado.número);
 
     },
@@ -211,7 +212,6 @@ module.exports= {
 
         }
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurado);
 
     },
@@ -229,7 +229,6 @@ module.exports= {
             resultado: resultado
         })
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json('ok');
     },
     checarChute: async function (req, res) {
@@ -252,7 +251,6 @@ module.exports= {
             },
         })
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json('ok');
     },
     mostrarFigurados: async function (req, res) {
@@ -269,7 +267,6 @@ module.exports= {
             ]
         });
 
-        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurados);
     }
 }
