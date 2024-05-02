@@ -94,8 +94,6 @@ module.exports= {
     mostrarFiguradoDia: async function (req, res) {
         let date = new Date();
 
-        console.log(date)
-
         let data_completa = (date.getYear()+1900) +'-0'+(date.getMonth()+1)+'-'+date.getDate()+' 03:00:00';
 
         var figurado = await Figurado.findOne({ 
