@@ -80,6 +80,7 @@ module.exports= {
             jogadores : jogadores
         }
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(data);
     },
     mostrarJogadores: async function (req, res) {
@@ -88,6 +89,7 @@ module.exports= {
             order: [['nome', 'ASC']]
         })
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(jogadores);
 
     },
@@ -104,6 +106,7 @@ module.exports= {
             },
         });
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurado.número);
 
     },
@@ -207,6 +210,7 @@ module.exports= {
 
         }
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurado);
 
     },
@@ -224,6 +228,7 @@ module.exports= {
             resultado: resultado
         })
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json('ok');
     },
     checarChute: async function (req, res) {
@@ -246,6 +251,7 @@ module.exports= {
             },
         })
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json('ok');
     },
     mostrarFigurados: async function (req, res) {
@@ -262,6 +268,7 @@ module.exports= {
             ]
         });
 
+        res.set('Access-Control-Allow-Origin', '*');
         return res.status(201).json(figurados);
     }
 }
