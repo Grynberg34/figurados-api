@@ -9,6 +9,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cors = require('cors');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+app.use(cors());
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -25,7 +26,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
 
 // Passport
 app.use(passport.initialize());
