@@ -138,9 +138,23 @@ module.exports= {
             dica.dataValues.texto = 'jogava de'
         }
 
+        let dica_2 = await Palpite.findByPk(figurado.dica_2);
+
+        if (dica_2.tipo === 'título' ) {
+            dica_2.dataValues.texto = 'ganhou'
+        } 
+        if (dica_2.tipo === 'time') {
+            dica_2.dataValues.texto = 'jogou no'
+        } 
+        if (dica_2.tipo === 'posição') {
+            dica_2.dataValues.texto = 'jogava de'
+        }
+
         figurado.dataValues.certos = certos__conjunto;
 
         figurado.dica = dica;
+
+        figurado.dica_2 = dica_2;
 
         if (user !== null) {
 

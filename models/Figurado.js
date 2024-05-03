@@ -36,8 +36,8 @@ const Figurado = connection.define('Figurado', {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    anos: { 
-      type: DataTypes.STRING,
+    dica_2: { 
+      type: DataTypes.INTEGER,
       allowNull: true
     }
 },{

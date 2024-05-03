@@ -11,7 +11,7 @@ const User = connection.define('User', {
     },
     name: { 
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: true,
     },
     email: { 
@@ -26,7 +26,8 @@ const User = connection.define('User', {
     },
     created: { 
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
+      unique: false
     },
 },{
   tableName: 'users'

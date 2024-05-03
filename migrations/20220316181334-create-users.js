@@ -12,7 +12,7 @@ module.exports = {
       },
       name: { 
           type: DataTypes.STRING,
-          unique: true,
+          unique: false,
           allowNull: true,
       },
       email: { 
@@ -27,6 +27,7 @@ module.exports = {
       },
       created: { 
         type: DataTypes.DATE,
+        unique: false,
         allowNull: true
       },
       }, 
