@@ -30,6 +30,26 @@ module.exports= {
             return res.status(400)
         }
     }, 
+    definirCertoFigurado: async function (req,res) {
+        let token = req.header('authorization').substr(7);
+        let palpite_id = req.body.palpite_id;
+        let figurados = req.body.figurados;
+
+        if (token == process.env.ADMIN_KEY) {
+            
+            for (let i = 0; i < figurados.length; i++) {
+                await Certo.create({
+                    figurado_id: figurados[i],
+                    palpite_id: palpite_id
+                })
+            } 
+
+          return res.status(201).json('ok');
+
+        } else {
+            return res.status(400)
+        }
+    }, 
     checarToken: async function (req,res,next) {
 
         var token = req.header('authorization').substr(7);
