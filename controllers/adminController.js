@@ -38,10 +38,18 @@ module.exports= {
         if (token == process.env.ADMIN_KEY) {
             
             for (let i = 0; i < figurados.length; i++) {
-                await Certo.create({
-                    figurado_id: figurados[i],
-                    palpite_id: palpite_id
+                await Certo.findOrCreate({
+                    where: {
+                        figurado_id: figurados[i],
+                        palpite_id: palpite_id
+                    },
+                    defaults: {
+                        figurado_id: figurados[i],
+                        palpite_id: palpite_id
+                    },
                 })
+
+                
             } 
 
           return res.status(201).json('ok');
