@@ -5,16 +5,9 @@ var sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.
 
   host: process.env.DB_HOST,
   dialect: 'mysql',
-  port: 25060,
   define: {
     timestamps: false
   },
-  dialectOptions: {
-    ssl: {
-    require: true,
-    rejectUnauthorized: false 
-    }
-  }
 })
 
 sequelize.authenticate()
